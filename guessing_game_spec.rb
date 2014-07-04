@@ -3,7 +3,7 @@ require './guessing_game.rb'
 describe GuessingGame do
 
   before(:each) do
-    @gg = GuessingGame.new(10, 3)
+    @gg = GuessingGame.new(10, 3, 2)
   end
 
   it "should respond with a random number for the guess" do
@@ -20,12 +20,8 @@ describe GuessingGame do
     expect(@gg.guess(@gg.answer)).to eq true
   end
 
-  it "should return 2 as correct guess" do
-    expect(@gg.guess(@gg.answer)).to eq true
-  end
-
   it "should return false for wrong answer" do
-    expect(@gg.guess(@gg.answer + 2)).to eq false
+    expect(@gg.guess(@gg.answer + 5)).to eq false
   end
 
   it "should return 3 for tries" do
@@ -41,6 +37,11 @@ describe GuessingGame do
     expect{
       4.times { @gg.guess(5) }
     }.to raise_error GuessingGame::NoMoreGuessesError
+  end
+
+  it "should tell you if you are 'close' when within 'closeness' range" do
+    @gg.answer = 7
+    expect(@gg.guess(5)).to eq :close
   end
 
 end
