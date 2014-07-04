@@ -2,11 +2,12 @@ class GuessingGame
 
   class NoMoreGuessesError < StandardError; end
 
-  attr_accessor :answer, :tries
+  attr_accessor :answer, :tries, :closeness
 
-  def initialize(max, tries=3)
+  def initialize(max, tries=3, closeness=2)
     self.answer = rand(max)
     self.tries = tries
+    self.closeness = closeness
   end
 
   def guess(number)
@@ -14,8 +15,17 @@ class GuessingGame
       raise NoMoreGuessesError
     else
       self.tries -= 1
+      range=(answer-closeness)..(answer+closeness)
+
+      case 
+      when answer != number && range.cover?(number)
+        :close
+      when answer == number
+        true  
+      else answer != number
+        false
+      end
     end
-    answer == number
   end
 
 end
