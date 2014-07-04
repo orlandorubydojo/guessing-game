@@ -18,7 +18,7 @@ class GuessingGame
       range=(answer-closeness)..(answer+closeness)
 
       case 
-      when (answer != number && range.cover?(number))
+      when answer != number && range.cover?(number)
         :close
       when answer == number
         true  
