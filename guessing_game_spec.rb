@@ -40,8 +40,7 @@ describe GuessingGame do
   end
 
   it "should tell you if you are 'close' when within 'closeness' range" do
-    @gg.answer = 7
-    expect(@gg.guess(5)).to eq :close
+    expect(@gg.guess(@gg.answer + 2)).to eq :close
   end
 
 end
