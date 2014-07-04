@@ -15,11 +15,10 @@ class GuessingGame
       raise NoMoreGuessesError
     else
       self.tries -= 1
-      low = answer-closeness..answer
-      high = answer..answer+closeness
+      range=(answer-closeness)..(answer+closeness)
 
       case 
-      when (answer != number && low.cover?(number)) || (answer != number && high.cover?(number)) 
+      when (answer != number && range.cover?(number))
         :close
       when answer == number
         true  
@@ -28,5 +27,5 @@ class GuessingGame
       end
     end
   end
-  
+
 end
